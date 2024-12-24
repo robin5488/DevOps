@@ -1,0 +1,25 @@
+services:
+  ubuntu-1:
+    build: ./
+    container_name: "ubuntu-1"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./shared:/shared
+    networks:
+      - net-1
+
+  ubuntu-2:
+    build: ./
+    container_name: "ubuntu-2"
+    stdin_open: true
+    tty: true
+    # voumes is mapped to the same shared folder
+    volumes:
+      - ./shared:/shared
+    networks:
+      - net-2
+
+networks:
+  net-1:
+  net-2:

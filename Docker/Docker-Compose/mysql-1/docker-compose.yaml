@@ -1,0 +1,27 @@
+services:
+  mysqldb:
+    image: 'mysql:latest'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=userinfo
+    container_name: "mysqldb"
+    # healthcheck for mysql container - check if mysql is up and running
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  mypythonapp:
+    # build the image from the Dockerfile in the current directory
+    build: ./
+    container_name: mypythonapp
+    # wait for mysql container to be healthy before starting this container
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    # stdin_open and tty are required for the container to run in the foreground
+    stdin_open: true
+    tty: true
+
+#docker-compose run -d mysqldb #run the mysql container in detached mode
+#docker-compose run mypythonapp #run the python app container in the foreground to interact with the app
