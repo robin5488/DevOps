@@ -1,0 +1,13 @@
+---
+- name: Copy files tp remote
+  hosts: all
+
+  tasks:
+  - name: copy files
+    copy:
+      src: /root/myfile.txt
+      dest: /root/
+      owner: robin
+      group: nag
+      mode: 0777
+      backup: true

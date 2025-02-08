@@ -1,0 +1,13 @@
+---
+
+- name: Download a file
+  hosts: all
+
+  tasks:
+  - name: Download a file
+    get_url:
+      url: https://media.geeksforgeeks.org/wp-content/uploads/20240226121023/GFG.pdf
+      dest: /root
+      owner: robin
+      group: robin
+      mode: 0777

@@ -1,0 +1,11 @@
+---
+
+- name: Script Run on Remote
+  hosts: all
+
+  tasks:
+  - name: run the script
+    shell: ./myscript.sh >> script.log
+    args:
+      chdir: /root
+      #creates: script.log

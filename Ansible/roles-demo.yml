@@ -1,0 +1,8 @@
+---
+
+- name: Role Usecase Demo
+  hosts: all
+  become: true
+  roles:
+    - httpd-setup
+    - fwd-service

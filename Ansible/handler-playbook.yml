@@ -1,0 +1,20 @@
+---
+
+- name: Firewall Reload Handler
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Enable a service in firewalld
+    firewalld:
+      port: 443/tcp
+      permanent: true
+      state: disabled
+    notify:
+      - Reload firewalld
+
+  handlers:
+  - name: Reload firewalld
+    service:
+      name: firewalld
+      state: reloaded

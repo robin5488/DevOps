@@ -1,0 +1,14 @@
+---
+
+- name: Create Cron Environment Variable
+  hosts: all
+
+  tasks:
+  - name: Create VAR env variable
+    cron:
+      name: VAR
+      env: yes
+      user: robin
+      job: /robin/script
+      insertbefore: PATH
+      state: absent

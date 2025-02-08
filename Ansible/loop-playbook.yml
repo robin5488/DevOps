@@ -1,0 +1,14 @@
+---
+
+- name: Installing packages using loop
+  hosts: all
+
+  tasks:
+  - name: Install multiple packages
+    yum:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - httpd
+      - nginx
+      - mariadb

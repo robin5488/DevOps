@@ -1,0 +1,17 @@
+---
+
+- name: Firewall open for nginx
+  hosts: all
+
+  tasks:
+  - name: Enable a nginx service in Firewalld
+    firewalld:
+      #service: nginx
+      port: 80/tcp
+      permanent: true
+      state: enabled
+
+  - name: Reload the firewalld
+    service:
+      name: firewalld
+      state: reloaded

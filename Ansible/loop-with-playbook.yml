@@ -1,0 +1,14 @@
+---
+
+- name: with-items loop
+  hosts: all
+  become: yes
+  vars:
+    - apps: [telnet,vim,curl]
+
+  tasks:
+  - name: Installing applications
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items: "{{ apps }}"

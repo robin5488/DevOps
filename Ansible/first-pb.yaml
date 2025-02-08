@@ -1,0 +1,11 @@
+---
+
+- name: First Ansible Playbook
+  hosts: 192.168.80.134
+
+  tasks:
+  - name: Test Connectivity
+    ping:
+
+  - name: "Print Output"
+    debug: msg="Akright!!!"

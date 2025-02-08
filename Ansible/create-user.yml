@@ -1,0 +1,15 @@
+---
+
+- name: Create a User
+  hosts: all
+
+  tasks:
+  - name: User Creation
+    user:
+      name: taj
+      comment: new user for project
+      home: /home/taj
+      shell: /bin/bash
+      groups: pojo,newpojo
+      state: absent
+      remove: yes

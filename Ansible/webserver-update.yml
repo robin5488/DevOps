@@ -1,0 +1,19 @@
+---
+
+- name: WebServer Update Playbook
+  hosts: 192.168.80.134
+
+  tasks:
+  - name: Place the HTML file
+    copy:
+      src: /var/lib/jenkins/workspace/webserver-update/index.html
+      dest: /var/www/html/index.html
+    become: true
+
+  - name: Restart the HTTPD service
+    service:
+      name: httpd
+      state: restarted
+      enabled: yes
+    become: true
+

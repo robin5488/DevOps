@@ -1,0 +1,15 @@
+---
+
+- name: Using Variable in Playbook
+  hosts: all
+    #vars:
+    #- app: nginx
+    #vars_files:
+    #- /etc/ansible/playbooks/vars.yml
+
+  tasks:
+  - name: Install application
+    yum:
+      name: "{{ app_name }}"
+      state: present
+

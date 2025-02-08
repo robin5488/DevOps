@@ -1,0 +1,11 @@
+---
+
+- name: Ansible Condion
+  hosts: all
+
+  tasks:
+  - name: Install a package only on RedHat
+    ansible.builtin.yum:
+      name: httpd
+      state: present
+    when: ansible_os_family == "RedHat"

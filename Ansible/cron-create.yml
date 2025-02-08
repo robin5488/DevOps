@@ -1,0 +1,17 @@
+---
+
+- name: Create Cron Job
+  hosts: all
+
+  tasks:
+  - name: Add a Cron Job
+    cron: 
+      name: Script Cron Job
+      minute: 30
+      hour: 18
+      day: 15
+      month: "*"
+      weekday: "*"
+      user: robin
+      job: /root/myscript.sh
+      disabled: yes

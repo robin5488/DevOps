@@ -1,0 +1,14 @@
+---
+
+- name: Set a password for new user
+  hosts: all
+
+  tasks:
+  - name: set user passwd
+    user:
+      name: taj
+      update_password: always
+      password: "{{'abcd' | password_hash('sha512')}}"
+
+  - name: Force user to change password on next login
+    command: chage -d 0 taj

@@ -1,0 +1,11 @@
+---
+
+- name: Remove Cron Job
+  hosts: all
+
+  tasks:
+  - name: Remove Cron Job
+    cron:
+      name: Script Cron Job
+      state: absent
+      user: robin

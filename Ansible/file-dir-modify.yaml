@@ -1,0 +1,34 @@
+---
+
+- name: File/Direcortory Modification
+  hosts: all
+
+  tasks:
+  - name: Create a File
+    file:
+      path: /root/newfile.txt
+      state: touch
+      owner: robin
+      group: robin
+      mode: u=rwx,g=rw
+
+  - name: Create a Directory
+    file:
+      path: /root/myfolder
+      state: directory
+      owner: nag
+
+  - name: Delete a File
+    file:
+      path: /root/myfile.txt
+      state: absent
+
+  - name: Delete a Folder
+    file:
+      path: /root/oldfolder
+      state: absent
+
+  - name: Change Permission
+    file:
+      path: /root/file.txt
+      mode: u=r,o=rwx
