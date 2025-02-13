@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "Jenkins-Maven"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Get some code from a GitHub repository
+                git 'https://github.com/jenkins-docs/simple-java-maven-app.git'
+            }
+        }
+        stage('Build') {
+            steps{
+                sh 'mvn clean package'
+            }
+        }
+        stage('Test') {
+            steps{
+                sh 'mvn test'
+            }
+            post{
+                always{
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
+            }
+        }
+        stage('Approval') {
+            steps {
+                input 'Approve Deployment to Production?'
+            }
+        }
+        stage('Deploy') {
+            steps{
+                sh 'echo Deployed'
+            }
+        }
+        
+    }
+    post{
+        failure {
+            echo 'Failure!'
+            mail to: 'singhrobin5488@gmail.com',
+                    subject: "FAILED: ${env.JOB_NAME} - BUILD #${env.BUILD_NUMBER}",
+                    body: "Job '${env.JOB_NAME}' (${env.BUILD_URL}) failed."
+        }
+        success {
+            echo 'Build and Test stages Successfull!'
+            archiveArtifacts artifacts: '**/target/*.jar', onlyIfSuccessful: true
+        }
+    }
+}
