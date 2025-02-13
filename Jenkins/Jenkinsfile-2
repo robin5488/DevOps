@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('start') {
+            steps {
+                sh '''
+                echo 'START'
+                echo 'END'
+                '''
+                retry(3) {
+                    sh 'echo trying..'
+                }
+                
+                timeout(time:15, unit:'SECONDS') {
+                    sh 'sleep 30'
+                }
+            }
+        }
+    }
+}
